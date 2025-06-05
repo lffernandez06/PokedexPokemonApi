@@ -1,0 +1,26 @@
+<div class="my-10">
+  <app-search-box (pokemonQuery)="pokemonSearByName($event)"/>
+</div>
+
+<div class="justify-items-center mt-5">
+  <div>
+    <button (click)="checkPokeApi()" class="btn btn-primary">
+      Cargar Pokemons
+    </button>
+  </div>
+</div>
+<div
+  class="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 justify-items-center"
+>
+  @for (item of filteredPokemons(); track $index) {
+
+  <div class="my-10  ">
+    <app-card class=""  [id]="item.id" [name]="item.name" [ImageURL]="item.imageURL" />
+  </div>
+  }
+
+    @if (errorMessage()) {
+      <app-error-message [error]="errorMessage()"/>
+    }
+
+</div>

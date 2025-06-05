@@ -1,0 +1,32 @@
+
+
+<!-- [ngClass]="pokColorClass()" -->
+
+  <div
+
+  class="card bg-base-100 w-70 shadow-sm  ">
+  <figure>
+    <img
+      [src]="ImageURL()"
+      alt="No Images" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{name() | titlecase }} </h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+   <div class="flex">
+       <button (click)="showDetails()"  class="mr-1 flex-auto btn btn-primary">Details</button>
+      <!-- <button class="ml-1 flex-auto btn btn-primary">Look</button> -->
+
+   </div>
+
+    <!-- <div class="card-actions justify-end">
+      <button class="btn btn-primary">Look</button>
+    </div> -->
+  </div>
+</div>
+
+
+<div class="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 justify-items-center">
+
+
+</div>
