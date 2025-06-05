@@ -1,119 +1,96 @@
-<div
-  class="my-10 grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 justify-items-center"
->
-  <div class="card bg-base-100 w-200 shadow-sm ">
-    <div class="justify-items-center mt-5">
-      <h2 class="font-semibold text-2xl">{{ pokemonName() | titlecase }}</h2>
+<div class="justify-items-center my-10 grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 px-4">
+  <div class="card bg-base-100 w-full max-w-md shadow-sm">
+    <div class="text-center mt-5">
+      <h2 class="font-semibold text-2xl">
+        {{ pokemonName() | titlecase }}
+      </h2>
     </div>
 
     <figure>
-      <img class="my-10" [src]="pokemonImage()" alt="No Images" />
-
+      <img class="my-10 " [src]="pokemonImage()" alt="No Images" />
     </figure>
-    <div class="justify-items-start mx-5">
-        <div class="card bg-base-100 w-full shadow-sm p-2 font-bold"> Tipo:
 
-        @for (item of pokemonType(); track $index) {
-
-            <li class="font-semibold m-2">
-              {{item.name | titlecase}}
-            </li>
-
-        }
-        </div>
+    <div class="mx-5">
+      <div class="card bg-base-100 w-full shadow-sm p-2 font-bold">
+        Tipo:
+        <ul>
+          @for (item of pokemonType(); track $index) {
+          <li class="font-semibold m-2">
+            {{item.name | titlecase}}
+          </li>
+          }
+        </ul>
       </div>
-    <div class="justify-items-center">
-      <div>
-          @if (errorMessage()) {
-      <app-error-message [error]="errorMessage()"/>
-    }
-      </div>
-
     </div>
 
-
-    <div class="stats stats-horizontal shadow m-3">
-      @for (item of pokemonStats(); track $index) {
-      <ul>
-        <li>
-          <div class="stat justify-items-center">
-            <div class="stat-title">{{ pokemonStats()[$index].name }}</div>
-            <div class="stat-value">{{ pokemonStats()[$index].baseStat }}</div>
-            <div class="stat-desc">
-              effort: {{ pokemonStats()[$index].effort }}
-            </div>
-          </div>
-        </li>
-      </ul>
+    <div class="text-center">
+      @if (errorMessage()) {
+      <app-error-message [error]="errorMessage()" />
       }
     </div>
-    <div class="justify-items-center">
-      <div>
-        @for (item of pokemonAbility(); track $index) {
 
-        <div class="stats stats-horizontal shadow m-3">
-          <div class="stat justify-items-center">
-            <ul>
-              <li>
-                <div class="stat">{{ item.name | titlecase }}</div>
-              </li>
-            </ul>
-            <div>
-              @if (item.name?.length! > 0) {
-              <button
-                class="mx-5 my-2 btn btn-primary-content"
-                (click)="loadEfectsById(item.id)"
-              >
-                Check Efects
-              </button>
-              }
+    <div class="flex flex-wrap justify-center gap-3 m-3">
+      @for (item of pokemonStats(); track $index) {
+        <ul>
+            <li>
+              <div class=" justify-items-center stat bg-base-200 p-3 rounded shadow w-full sm:w-48">
+              <div class="stat-title">{{ item.name }}</div>
+              <div class="stat-value">{{ item.baseStat }}</div>
+              <div class="stat-desc">Effort: {{ item.effort }}</div>
             </div>
-          </div>
-        </div>
 
-        }
+          </li>
+        </ul>
+
+      }
+    </div>
+
+    <div class="flex flex-col items-center gap-3">
+      @for (item of pokemonAbility(); track $index) {
+      <div class="stats stats-horizontal shadow w-full max-w-md">
+        <div class="stat w-full text-center">
+          <div class="font-semibold">{{ item.name | titlecase }}</div>
+          @if (item.name?.length! > 0) {
+          <button
+            class="mx-5 my-2 btn btn-primary-content"
+            (click)="loadEfectsById(item.id)"
+          >
+            Check Effects
+          </button>
+          }
+        </div>
       </div>
+      }
     </div>
 
     <div class="mx-2 card-body">
       <ul>
         <li>{{ abilityEfects() }}</li>
       </ul>
-      @if (pokemonVersions().length>0) {
+
+      @if (pokemonVersions().length > 0) {
       <div class="stat-title m-2">Pokemon Available On:</div>
       }
 
-      <div class="stats stats-horizontal shadow m-3">
-
+      <div class="flex flex-wrap gap-3 justify-center m-3">
         @for (item of pokemonVersions(); track $index) {
-
-        <ul>
-          <li>
-            <div class="stat">
-
-              <div class="stat-title">
-                {{ pokemonVersions()[$index] | titlecase }}
-              </div>
-            </div>
-          </li>
-        </ul>
-
+        <div class="stat bg-base-200 p-3 rounded shadow w-full sm:w-48 text-center">
+          <div class="stat-title">{{ item | titlecase }}</div>
+        </div>
         }
       </div>
 
-      <button (click)="loadPokemonFeatures()" class="btn btn-primary">
-        Look All Game Versions
-      </button>
-      <div class="flex"></div>
+      <div class="text-center mt-4">
+        <button (click)="loadPokemonFeatures()" class="btn btn-primary">
+          Look All Game Versions
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="justify-items-center">
-  <div class="my-5">
-    <button (click)="loadPokemonDetailsToPage()" class="btn btn-primary">
-      Look More Details
-    </button>
-  </div>
+<div class="text-center my-5">
+  <button (click)="loadPokemonDetailsToPage()" class="btn btn-primary">
+    Look More Details
+  </button>
 </div>
-
